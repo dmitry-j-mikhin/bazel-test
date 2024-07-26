@@ -1,0 +1,38 @@
+""" Builds libhubbub.
+"""
+
+cc_binary(
+    name = "hello_world_bin",
+    srcs = ["hello_world_bin.c"],
+    copts = ["-w"],
+    deps = ["hello_world_lib"],
+    dynamic_deps = ["hello_world_lib_dyn"],
+)
+
+cc_shared_library(
+    name = "hello_world_lib_dyn",
+    deps = ["hello_world_lib"],
+    additional_linker_inputs = [
+        "test.lds",
+    ],
+    user_link_flags = [
+        "-Wl,--version-script=$(location test.lds)",
+    ],
+)
+
+cc_library(
+    name = "hello_world_lib",
+    srcs = ["hello_world_lib.cpp"],
+    hdrs = ["hello_world_lib.h"],
+    deps = [
+        "@zlib",
+        "@sqlite3",
+        "@brotli//:brotlidec",
+        "@libyaml",
+        "@yaml-cpp",
+        "@libmaxminddb",
+        "@libconfig",
+        "@libhubbub",
+        "@libxml2",
+    ],
+)
