@@ -6,4 +6,4 @@ set -ex
 #bazel build --config=linux_amd64_glibc //:hello_world
 
 reset
-bazel build --config=linux_amd64_glibc -c dbg //:hello_world_bin
+bazel build -c dbg //:hello_world_bin
